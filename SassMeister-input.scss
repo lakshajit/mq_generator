@@ -1,0 +1,375 @@
+// ----
+// Sass (v3.4.21)
+// Compass (v1.0.3)
+// ----
+
+@mixin _assert-ascending($map, $map-name) {
+  $prev-key: null;
+  $prev-num: null;
+  @each $key, $num in $map {
+    @if $prev-num == null {
+      // Do nothing
+    } @else if not comparable($prev-num, $num) {
+      @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    } @else if $prev-num >= $num {
+      @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+    }
+    $prev-key: $key;
+    $prev-num: $num;
+  }
+}
+$enable-grid-classes: true;
+$enable-flex: true;
+$grid-columns: 24;
+$grid-gutter-width-base: 30px;
+$grid-breakpoints: (
+	xs1: 	0,
+	xs2: 	480px,
+	sm1: 	600px,
+	sm2: 	840px,
+	md1: 	960px,
+	lg1: 	1280px,
+	lg2: 	1440px,
+	lg3: 	1600px,
+	xl1: 	1920px
+);
+$breakpoint-groups: (
+	xs1: map-get($grid-breakpoints, xs1),
+	sm1: map-get($grid-breakpoints, sm1),
+	md1: map-get($grid-breakpoints, md1),
+	lg1: map-get($grid-breakpoints, lg1),
+	xl1: map-get($grid-breakpoints, xl1)
+);
+
+
+
+///===========Customize variables
+
+$font-sizes: (
+	lewis:(
+		xs1:(
+			font-size: 37,
+			line-height: 44
+		),
+		sm1:(
+			font-size: 39,
+			line-height: 44
+		),
+		md1:(
+			font-size: 45,
+			line-height: 48
+		),
+		lg1:(
+			font-size: 52,
+			line-height: 60
+		),
+		xl1:(
+			font-size: 62,
+			line-height: 68
+		)
+	),
+	skye:(
+		xs1:(
+			font-size: 32,
+			line-height: 36
+		),
+		sm1:(
+			font-size: 34,
+			line-height: 36
+		),
+		md1:(
+			font-size: 40,
+			line-height: 44
+		),
+		lg1:(
+			font-size: 45,
+			line-height: 52
+		),
+		xl1:(
+			font-size: 52,
+			line-height: 56
+		)
+	),
+	shetland:(
+		xs1:(
+			font-size: 29,
+			line-height: 36
+		),
+		sm1:(
+			font-size: 30,
+			line-height: 36
+		),
+		md1:(
+			font-size: 34,
+			line-height: 40
+		),
+		lg1:(
+			font-size: 39,
+			line-height: 44
+		),
+		xl1:(
+			font-size: 44,
+			line-height: 52
+		)
+	),
+	mull:(
+		xs1:(
+			font-size: 26,
+			line-height: 32
+		),
+		sm1:(
+			font-size: 27,
+			line-height: 32
+		),
+		md1:(
+			font-size: 29,
+			line-height: 36
+		),
+		lg1:(
+			font-size: 33,
+			line-height: 40
+		),
+		xl1:(
+			font-size: 37,
+			line-height: 44
+		)
+	),
+	islay:(
+		xs1:(
+			font-size: 23,
+			line-height: 28
+		),
+		sm1:(
+			font-size: 24,
+			line-height: 32
+		),
+		md1:(
+			font-size: 25,
+			line-height: 32
+		),
+		lg1:(
+			font-size: 28,
+			line-height: 36
+		),
+		xl1:(
+			font-size: 31,
+			line-height: 40
+		)
+	),
+	orkney:(
+		xs1:(
+			font-size: 20,
+			line-height: 28
+		),
+		sm1:(
+			font-size: 21,
+			line-height: 28
+		),
+		md1:(
+			font-size: 22,
+			line-height: 28
+		),
+		lg1:(
+			font-size: 25,
+			line-height: 32
+		),
+		xl1:(
+			font-size: 26,
+			line-height: 36
+		)
+	),
+	arran:(
+		xs1:(
+			font-size: 18,
+			line-height: 24
+		),
+		sm1:(
+			font-size: 18,
+			line-height: 24
+		),
+		md1:(
+			font-size: 19,
+			line-height: 28
+		),
+		lg1:(
+			font-size: 21,
+			line-height: 28
+		),
+		xl1:(
+			font-size: 22,
+			line-height: 32
+		)
+	),
+	jura:(
+		xs1:(
+			font-size: 16,
+			line-height: 24
+		),
+		sm1:(
+			font-size: 16,
+			line-height: 24
+		),
+		md1:(
+			font-size: 16,
+			line-height: 24
+		),
+		lg1:(
+			font-size: 18,
+			line-height: 28
+		),
+		xl1:(
+			font-size: 18,
+			line-height: 28
+		)
+	),
+	uist:(
+		xs1:(
+			font-size: 14,
+			line-height: 20
+		),
+		sm1:(
+			font-size: 14,
+			line-height: 20
+		),
+		md1:(
+			font-size: 14,
+			line-height: 20
+		),
+		lg1:(
+			font-size: 16,
+			line-height: 24
+		),
+		xl1:(
+			font-size: 16,
+			line-height: 24
+		)
+	),
+	bute:(
+		xs1:(
+			font-size: 12,
+			line-height: 16
+		),
+		sm1:(
+			font-size: 13,
+			line-height: 20
+		),
+		md1:(
+			font-size: 13,
+			line-height: 20
+		),
+		lg1:(
+			font-size: 13,
+			line-height: 20
+		),
+		xl1:(
+			font-size: 14,
+			line-height: 20
+		)
+	),
+	cumbrae:(
+		xs1:(
+			font-size: 11,
+			line-height: 16
+		),
+		sm1:(
+			font-size: 12,
+			line-height: 16
+		),
+		md1:(
+			font-size: 12,
+			line-height: 16
+		),
+		lg1:(
+			font-size: 12,
+			line-height: 16
+		),
+		xl1:(
+			font-size: 13,
+			line-height: 16
+		)
+	)
+);
+
+
+
+
+
+//========== Breakpoint mixins
+
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-up($name, $breakpoints) {
+    @include media-breakpoint-down($name, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-up($lower, $breakpoints) {
+    @include media-breakpoint-down($upper, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+
+
+
+//===== Mixins
+
+@mixin type($type-name, $breakpoint) {
+  font-size: map-get(map-get(map-get($font-sizes, $type-name), $breakpoint), font-size) + 0px;
+  line-height: map-get(map-get(map-get($font-sizes, $type-name), $breakpoint), line-height) + 0px;
+}
+
+.type {
+  @each $name in $font-sizes {
+    $name: nth($name, 1);
+
+    &--#{$name} {
+      @each $breakpoint in $breakpoint-groups {
+        $key: nth($breakpoint, 1);
+
+        @include media-breakpoint-up($key) {
+          @include type($name, $key);
+        }
+      }
+    }
+  }
+}
